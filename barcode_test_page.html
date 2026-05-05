@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Barcode & Data Matrix Test Pagina (A4)</title>
+    <!-- Gebruik bwip-js voor alle types barcodes inclusief Data Matrix -->
+    <script src="https://cdn.jsdelivr.net/npm/bwip-js@3.0.4/dist/bwip-js-min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f0f0f0; }
+        .page { width: 210mm; min-height: 297mm; padding: 10mm; margin: auto; background: white; border: 1px solid #ccc; box-sizing: border-box; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .item { border: 1px solid #eee; padding: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px; }
+        .label { margin-top: 10px; font-weight: bold; font-size: 14px; color: #444; }
+        .type { font-size: 11px; color: #888; margin-top: 2px; }
+        canvas { max-width: 100%; height: auto !important; }
+        @media print {
+            body { padding: 0; background: none; }
+            .page { border: none; margin: 0; box-shadow: none; }
+            button { display: none; }
+        }
+        button { padding: 12px 24px; font-size: 16px; cursor: pointer; margin: 0 auto 20px auto; display: block; background: #4CAF50; color: white; border: none; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <button onclick="window.print()">Print deze pagina</button>
+    <div class="page">
+        <h1>Barcode Test Pagina</h1>
+        <div class="subtitle">Speciaal voor de Doos Scanner App</div>
+
+        <div class="grid">
+            <!-- Data Matrix (Vaak bedoeld met "dot matrix") -->
+            <div class="item">
+                <canvas id="canvas_dm1"></canvas>
+                <div class="label">DM-DATA-001</div>
+                <div class="type">Data Matrix (Dot Matrix stijl)</div>
+            </div>
+            <div class="item">
+                <canvas id="canvas_dm2"></canvas>
+                <div class="label">INDUSTRIAL-99</div>
+                <div class="type">Data Matrix</div>
+            </div>
+
+            <!-- QR Codes -->
+            <div class="item">
+                <canvas id="canvas_qr1"></canvas>
+                <div class="label">QR-TEST-X1</div>
+                <div class="type">QR Code</div>
+            </div>
+            <div class="item">
+                <canvas id="canvas_qr2"></canvas>
+                <div class="label">https://github.com</div>
+                <div class="type">QR Code</div>
+            </div>
+
+            <!-- Standaard Barcodes -->
+            <div class="item">
+                <canvas id="canvas_c128"></canvas>
+                <div class="label">BARCODE-128</div>
+                <div class="type">Code 128</div>
+            </div>
+            <div class="item">
+                <canvas id="canvas_ean"></canvas>
+                <div class="label">8712345678901</div>
+                <div class="type">EAN-13</div>
+            </div>
+
+            <div class="item">
+                <canvas id="canvas_c39"></canvas>
+                <div class="label">CODE-39-SCAN</div>
+                <div class="type">Code 39</div>
+            </div>
+            <div class="item">
+                <canvas id="canvas_pdf417"></canvas>
+                <div class="label">PDF417-TEST</div>
+                <div class="type">PDF417 (Stacked)</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; border-top: 2px solid #333; padding-top: 15px; font-size: 13px;">
+            <strong>Test Instructies:</strong>
+            <ol>
+                <li>Open dit bestand (<code>barcode_test_page.html</code>) in een webbrowser.</li>
+                <li>Druk op de groene knop om te printen of scan direct van het scherm.</li>
+                <li>De app herkent al deze types automatisch.</li>
+                <li>Unieke check: Als je twee keer dezelfde code scant, zal de app deze weigeren (en geen piep geven).</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function generate(id, bcid, text, options = {}) {
+            try {
+                bwipjs.toCanvas(id, {
+                    bcid: bcid,       // Barcode type
+                    text: text,       // Text to encode
+                    scale: 3,         // 3x scaling factor
+                    height: 10,       // Bar height, in millimeters
+                    includetext: false, // Show human-readable text
+                    textxalign: 'center',
+                    ...options
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        window.onload = function() {
+            // Data Matrix
+            generate('canvas_dm1', 'datamatrix', 'DM-DATA-001');
+            generate('canvas_dm2', 'datamatrix', 'INDUSTRIAL-99');
+
+            // QR Codes
+            generate('canvas_qr1', 'qrcode', 'QR-TEST-X1');
+            generate('canvas_qr2', 'qrcode', 'https://github.com');
+
+            // Linear Barcodes
+            generate('canvas_c128', 'code128', 'BARCODE-128', { height: 15 });
+            generate('canvas_ean', 'ean13', '8712345678901', { height: 15 });
+            generate('canvas_c39', 'code39', 'CODE-39-SCAN', { height: 15 });
+            generate('canvas_pdf417', 'pdf417', 'PDF417-TEST', { height: 10 });
+        };
+    </script>
+</body>
+</html>

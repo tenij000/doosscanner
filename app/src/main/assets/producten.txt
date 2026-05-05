@@ -1,0 +1,4 @@
+GTIN;Naam;Prijs;Gewicht
+08710151539336;Holland Black;EUR 9,00;50 gram
+08710151539343;Holland Blue;EUR 7,50;40 gram
+08710151539350;Holland Gold;EUR 18,25;100 gram

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">doos scanner</string>
+    <string name="gtin_format">(01) GTIN: %1$s</string>
+</resources>
