@@ -31,8 +31,14 @@ class ScannerOverlayView(context: Context, attrs: AttributeSet?) : View(context,
         alpha = 160 
     }
 
+    private val targetPaint = Paint().apply {
+        color = Color.CYAN
+        style = Paint.Style.STROKE
+        strokeWidth = 12f
+    }
+
     private var detectedRect: RectF? = null
-    private var showOk = false
+    private var isTargetMatch = false
     val scanFrame = RectF()
     private val transparentPath = Path()
 
@@ -48,9 +54,9 @@ class ScannerOverlayView(context: Context, attrs: AttributeSet?) : View(context,
         transparentPath.addRect(scanFrame, Path.Direction.CCW)
     }
 
-    fun updateResult(rect: RectF?, ok: Boolean) {
+    fun updateResult(rect: RectF?, isTarget: Boolean) {
         detectedRect = rect
-        showOk = ok
+        isTargetMatch = isTarget
         invalidate()
     }
 
@@ -63,9 +69,9 @@ class ScannerOverlayView(context: Context, attrs: AttributeSet?) : View(context,
         // Teken het grijze scan-vak
         canvas.drawRect(scanFrame, centerFramePaint)
 
-        // Teken groen vierkant om resultaat (geen "OK" meer)
+        // Teken kader om resultaat
         detectedRect?.let { rect ->
-            canvas.drawRect(rect, boxPaint)
+            canvas.drawRect(rect, if (isTargetMatch) targetPaint else boxPaint)
         }
     }
 }

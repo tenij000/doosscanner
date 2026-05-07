@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">doos scanner</string>
     <string name="gtin_format">(01) GTIN: %1$s</string>
+    <string name="price_format">PRIJS: %1$s</string>
+    <string name="weight_format">GEWICHT: %1$s</string>
+    <string name="scanned_format">Gescand: %1$s</string>
 </resources>

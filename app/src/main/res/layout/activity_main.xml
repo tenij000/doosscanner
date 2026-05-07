@@ -38,6 +38,28 @@
                 android:textStyle="bold" />
 
             <ImageButton
+                android:id="@+id/btnSwitchCamera"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_camera"
+                android:contentDescription="Wissel camera"
+                app:tint="#4CAF50" />
+
+            <ImageButton
+                android:id="@+id/btnListCodes"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_agenda"
+                android:contentDescription="Lijst met codes"
+                app:tint="#4CAF50" />
+
+            <ImageButton
                 android:id="@+id/btnLoadFile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -84,6 +106,19 @@
             android:textColor="#FFD700"
             android:textSize="22sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTargetInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#402196F3"
+            android:padding="8dp"
+            android:text="ZOEKEN NAAR: -"
+            android:textColor="#2196F3"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
     </LinearLayout>
 
     <tenij000.versie1.ScannerOverlayView
